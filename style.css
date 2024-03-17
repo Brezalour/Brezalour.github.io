@@ -1,0 +1,134 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('test.jpg'); /* Remplacez 'lac.jpg' par le chemin de votre image */
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* Placez-le en dessous de tout le contenu */
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrer les tuiles horizontalement */
+}
+
+/*.tile {
+  flex: 1 1 300px; 
+  max-width: 300px; 
+  margin: 20px; 
+  padding: 20px; 
+  background-color: rgba(255, 255, 255, 0.1); 
+  backdrop-filter: blur(10px); 
+  border-radius: 10px; 
+}*/
+
+.tile {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.5); /* Couleur de fond transparente */
+  backdrop-filter: blur(10px); /* Flou pour un effet de transparence */
+  border-radius: 10px; /* Pour arrondir les coins */
+  margin: 20px; /* Marge entre les tuiles */
+  padding: 20px; /* Espacement à l'intérieur des tuiles */
+  transition: all 0.3s ease; /* Transition fluide pour l'animation */
+}
+
+/* Style pour la tuile agrandie */
+.tile.expanded {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 40px); /* Largeur de la tuile agrandie moins les marges */
+  height: calc(100% - 40px); /* Hauteur de la tuile agrandie moins les marges */
+  z-index: 1;
+  border-radius: 0; /* Supprime le coin arrondi */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Ajoute une ombre douce */
+}
+
+/* Contenu de la tuile agrandie */
+.tile.expanded h2,
+.tile.expanded p {
+  opacity: 0; /* Masque le contenu de la tuile originale */
+}
+
+/* Animation pour la fermeture */
+.tile:not(.expanded) {
+  transform: scale(1); /* Échelle normale */
+  opacity: 1; /* Réinitialise l'opacité */
+}
+
+/* Contenu de la tuile */
+.tile h2,
+.tile p {
+  margin: 0; /* Réinitialise les marges */
+}
+
+
+.tile:hover {
+  animation: shadowGrow 0.3s forwards; /* Applique l'animation lorsque la souris survole la tuile */
+}
+
+@keyframes shadowGrow {
+  from {
+      box-shadow: 0px 0px 0px rgba(0, 0, 0, 0); /* Ombre initiale */
+  }
+  to {
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Ombre finale */
+  }
+}
+
+.tile h2 {
+  margin-top: 0;
+}
+
+.tile p {
+  margin-bottom: 0;
+}
+
+
+@keyframes ripple {
+  0% {
+      transform: scale(1);
+      opacity: 0.7;
+  }
+  100% {
+      transform: scale(2);
+      opacity: 0;
+  }
+}
+
+.ripple {
+  position: fixed;
+  width: 0;
+  height: 0;
+  border: 3px solid rgba(255, 255, 255, 0.7); /* Couleur et transparence de l'ondulation */
+  border-radius: 50%; /* Rendre l'ondulation ronde */
+  pointer-events: none; /* Ignorer les événements de clic sur l'ondulation */
+  transform: translate(-50%, -50%); /* Déplacer le centre de l'ondulation au point de clic */
+  animation: rippleEffect 2s ease; /* Animation de l'ondulation */
+}
+
+@keyframes rippleEffect {
+  0% {
+      width: 0;
+      height: 0;
+      opacity: 0.7; /* Début de l'opacité */
+  }
+  100% {
+      width: 200px; /* Taille maximale de l'ondulation */
+      height: 200px; /* Taille maximale de l'ondulation */
+      opacity: 0; /* Disparition de l'ondulation */
+  }
+}
