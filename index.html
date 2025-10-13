@@ -1,67 +1,520 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CV/Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="background"></div>
-    <header>
-    </header>
-    <main>
-      <div class="tile" id="contact">
-        <h2>Contact</h2>
-        <p>
-          <a href="mailto:votre@email.com">votre@email.com</a>
-        </p>
-        <p>Téléphone: +33 123 456 789</p>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistant d'Auto-résolution</title>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            padding: 24px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 48px;
+        }
+        
+        .icon-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+        }
+        
+        .icon-circle.blue {
+            background-color: #dbeafe;
+        }
+        
+        .icon-circle.green {
+            background-color: #dcfce7;
+        }
+        
+        .icon-circle svg {
+            width: 32px;
+            height: 32px;
+        }
+        
+        .blue svg {
+            color: #2563eb;
+        }
+        
+        .green svg {
+            color: #16a34a;
+        }
+        
+        h2 {
+            font-size: 28px;
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+        
+        .description {
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+        
+        .contact-box {
+            background-color: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        
+        .contact-box p {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            text-align: center;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+            color: #1f2937;
+            font-weight: 500;
+        }
+        
+        .option-btn:hover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+        
+        .action-btn {
+            width: 100%;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .action-btn.primary {
+            background-color: #3b82f6;
+            color: white;
+            margin-bottom: 12px;
+        }
+        
+        .action-btn.primary:hover {
+            background-color: #2563eb;
+        }
+        
+        .action-btn.primary.green {
+            background-color: #16a34a;
+        }
+        
+        .action-btn.primary.green:hover {
+            background-color: #15803d;
+        }
+        
+        .action-btn.secondary {
+            background-color: white;
+            color: #374151;
+            border: 2px solid #d1d5db;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #f9fafb;
+        }
+        
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6b7280;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 0;
+            transition: color 0.2s;
+        }
+        
+        .back-btn:hover {
+            color: #1f2937;
+        }
+        
+        .back-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .progress {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
 
-      <div class="tile" id="competences">
-        <h2>Compétences</h2>
-        <ul>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>JavaScript</li>
-          <li>...</li>
-        </ul>
-      </div>
+    <script type="text/babel">
+        const { useState } = React;
 
-      <div class="tile" id="experiences">
-        <h2>Expériences</h2>
-        <ul>
-          <li><strong>2023-présent:</strong> Freelance Web Developer</li>
-          <li>
-            <strong>2021-2023:</strong> Développeur Web Junior, Entreprise X
-          </li>
-          <li>...</li>
-        </ul>
-      </div>
+        const HelpCircleIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        );
 
-      <div class="tile" id="formation">
-        <h2>Formation</h2>
-        <ul>
-          <li>
-            <strong>2020-2021:</strong> Master en Développement Web, Université
-            Y
-          </li>
-          <li>
-            <strong>2017-2020:</strong> Licence en Informatique, Université Z
-          </li>
-        </ul>
-      </div>
+        const BookOpenIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+        );
 
-      <div class="tile" id="moi">
-        <h2>Moi</h2>
-        <p>
-          Je suis un développeur web passionné par la création de sites web et
-          d'applications web. Je suis également un adepte des nouvelles
-          technologies et j'aime apprendre et explorer de nouveaux domaines.
-        </p>
-      </div>
-    </main>
-    <script src="script.js"></script>
-  </body>
+        const UserIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+        );
+
+        const ArrowLeftIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        );
+
+        const TroubleshootWizard = () => {
+            const [currentStep, setCurrentStep] = useState('start');
+            const [history, setHistory] = useState([]);
+
+            const steps = {
+                start: {
+                    question: "Quel type de problème rencontrez-vous ?",
+                    options: [
+                        { label: "Problème de connexion", next: "connexion" },
+                        { label: "Erreur lors de l'utilisation", next: "erreur" },
+                        { label: "Question sur une fonctionnalité", next: "fonctionnalite" },
+                        { label: "Problème de performance", next: "performance" }
+                    ]
+                },
+                connexion: {
+                    question: "Précisez votre problème de connexion :",
+                    options: [
+                        { label: "Je ne peux pas me connecter", next: "connexion_impossible" },
+                        { label: "Mot de passe oublié", next: "mdp_oublie" },
+                        { label: "Compte bloqué", next: "compte_bloque" }
+                    ]
+                },
+                connexion_impossible: {
+                    question: "Avez-vous vérifié votre identifiant ?",
+                    options: [
+                        { label: "Oui, il est correct", next: "result_support_connexion" },
+                        { label: "Non, je ne suis pas sûr", next: "result_tuto_identifiant" }
+                    ]
+                },
+                mdp_oublie: {
+                    result: {
+                        type: "tutorial",
+                        title: "Réinitialisation du mot de passe",
+                        description: "Suivez notre tutoriel pour réinitialiser votre mot de passe en quelques étapes simples.",
+                        action: "Accéder au tutoriel",
+                        link: "#tutorial-password-reset"
+                    }
+                },
+                compte_bloque: {
+                    result: {
+                        type: "contact",
+                        title: "Contactez le support technique",
+                        description: "Votre compte nécessite une intervention manuelle. Notre équipe de support va débloquer votre compte.",
+                        contact: "Support Technique - support@votrelogiciel.com",
+                        action: "Contacter le support"
+                    }
+                },
+                erreur: {
+                    question: "À quel moment l'erreur se produit-elle ?",
+                    options: [
+                        { label: "Au démarrage du logiciel", next: "erreur_demarrage" },
+                        { label: "Lors de la sauvegarde", next: "erreur_sauvegarde" },
+                        { label: "Lors de l'import de fichiers", next: "erreur_import" }
+                    ]
+                },
+                erreur_demarrage: {
+                    result: {
+                        type: "tutorial",
+                        title: "Résolution des erreurs au démarrage",
+                        description: "Ce tutoriel vous guide pour diagnostiquer et résoudre les problèmes de démarrage les plus courants.",
+                        action: "Voir le tutoriel",
+                        link: "#tutorial-startup-errors"
+                    }
+                },
+                erreur_sauvegarde: {
+                    result: {
+                        type: "contact",
+                        title: "Contactez l'équipe technique",
+                        description: "Les problèmes de sauvegarde peuvent nécessiter une vérification de vos permissions ou de l'espace disque.",
+                        contact: "Équipe Technique - tech@votrelogiciel.com",
+                        action: "Obtenir de l'aide"
+                    }
+                },
+                erreur_import: {
+                    question: "Quel type de fichier essayez-vous d'importer ?",
+                    options: [
+                        { label: "Fichier CSV", next: "result_tuto_csv" },
+                        { label: "Fichier Excel", next: "result_tuto_excel" },
+                        { label: "Autre format", next: "result_support_import" }
+                    ]
+                },
+                fonctionnalite: {
+                    question: "Sur quelle fonctionnalité avez-vous une question ?",
+                    options: [
+                        { label: "Rapports et statistiques", next: "result_tuto_rapports" },
+                        { label: "Gestion des utilisateurs", next: "result_contact_utilisateurs" },
+                        { label: "Paramètres avancés", next: "result_tuto_parametres" }
+                    ]
+                },
+                performance: {
+                    question: "Quel type de ralentissement constatez-vous ?",
+                    options: [
+                        { label: "Lenteur générale", next: "result_tuto_performance" },
+                        { label: "Plantages fréquents", next: "result_support_plantages" },
+                        { label: "Consommation excessive de ressources", next: "result_support_ressources" }
+                    ]
+                },
+                result_support_connexion: {
+                    result: {
+                        type: "contact",
+                        title: "Support Authentification",
+                        description: "Nos experts en authentification vont vérifier votre compte et résoudre le problème.",
+                        contact: "Support Authentification - auth@votrelogiciel.com",
+                        action: "Contacter un expert"
+                    }
+                },
+                result_tuto_identifiant: {
+                    result: {
+                        type: "tutorial",
+                        title: "Comment trouver son identifiant",
+                        description: "Ce guide vous explique où retrouver votre identifiant de connexion.",
+                        action: "Consulter le guide",
+                        link: "#tutorial-find-username"
+                    }
+                },
+                result_tuto_csv: {
+                    result: {
+                        type: "tutorial",
+                        title: "Import de fichiers CSV",
+                        description: "Tutoriel complet sur l'import de fichiers CSV avec exemples de formatage.",
+                        action: "Voir le tutoriel",
+                        link: "#tutorial-csv-import"
+                    }
+                },
+                result_tuto_excel: {
+                    result: {
+                        type: "tutorial",
+                        title: "Import de fichiers Excel",
+                        description: "Guide détaillé pour importer vos fichiers Excel correctement.",
+                        action: "Accéder au guide",
+                        link: "#tutorial-excel-import"
+                    }
+                },
+                result_support_import: {
+                    result: {
+                        type: "contact",
+                        title: "Support Import de Données",
+                        description: "Pour les formats spéciaux, notre équipe peut vous aider à configurer l'import.",
+                        contact: "Support Données - data@votrelogiciel.com",
+                        action: "Demander de l'aide"
+                    }
+                },
+                result_tuto_rapports: {
+                    result: {
+                        type: "tutorial",
+                        title: "Créer et personnaliser des rapports",
+                        description: "Apprenez à générer des rapports personnalisés et à exploiter les statistiques.",
+                        action: "Découvrir le tutoriel",
+                        link: "#tutorial-reports"
+                    }
+                },
+                result_contact_utilisateurs: {
+                    result: {
+                        type: "contact",
+                        title: "Administrateur Système",
+                        description: "La gestion des utilisateurs nécessite des droits administrateur. Contactez votre administrateur système.",
+                        contact: "Admin Système - admin@votrelogiciel.com",
+                        action: "Contacter l'admin"
+                    }
+                },
+                result_tuto_parametres: {
+                    result: {
+                        type: "tutorial",
+                        title: "Guide des paramètres avancés",
+                        description: "Documentation complète sur tous les paramètres de configuration avancés.",
+                        action: "Lire la documentation",
+                        link: "#tutorial-advanced-settings"
+                    }
+                },
+                result_tuto_performance: {
+                    result: {
+                        type: "tutorial",
+                        title: "Optimiser les performances",
+                        description: "Conseils et astuces pour améliorer la vitesse et la fluidité du logiciel.",
+                        action: "Optimiser maintenant",
+                        link: "#tutorial-performance"
+                    }
+                },
+                result_support_plantages: {
+                    result: {
+                        type: "contact",
+                        title: "Support Technique Urgent",
+                        description: "Les plantages fréquents nécessitent une analyse approfondie. Notre équipe va vous aider rapidement.",
+                        contact: "Support Urgent - urgent@votrelogiciel.com",
+                        action: "Obtenir de l'aide"
+                    }
+                },
+                result_support_ressources: {
+                    result: {
+                        type: "contact",
+                        title: "Support Technique",
+                        description: "Une consommation excessive peut indiquer un problème de configuration. Contactez-nous pour un diagnostic.",
+                        contact: "Support Technique - support@votrelogiciel.com",
+                        action: "Demander un diagnostic"
+                    }
+                }
+            };
+
+            const handleChoice = (next) => {
+                setHistory([...history, currentStep]);
+                setCurrentStep(next);
+            };
+
+            const handleBack = () => {
+                if (history.length > 0) {
+                    const newHistory = [...history];
+                    const previousStep = newHistory.pop();
+                    setHistory(newHistory);
+                    setCurrentStep(previousStep);
+                }
+            };
+
+            const handleRestart = () => {
+                setCurrentStep('start');
+                setHistory([]);
+            };
+
+            const currentStepData = steps[currentStep];
+
+            if (!currentStepData) {
+                return <div className="container"><div className="card">Erreur: Étape non trouvée</div></div>;
+            }
+
+            if (currentStepData.result) {
+                const result = currentStepData.result;
+                const isTutorial = result.type === 'tutorial';
+
+                return (
+                    <div className="container">
+                        <div className="card">
+                            <div className={`icon-circle ${isTutorial ? 'green' : 'blue'}`}>
+                                {isTutorial ? <BookOpenIcon /> : <UserIcon />}
+                            </div>
+
+                            <h2>{result.title}</h2>
+                            <p className="description">{result.description}</p>
+                            
+                            {result.contact && (
+                                <div className="contact-box">
+                                    <p>{result.contact}</p>
+                                </div>
+                            )}
+
+                            <button
+                                onClick={() => result.link && window.open(result.link, '_blank')}
+                                className={`action-btn primary ${isTutorial ? 'green' : ''}`}
+                            >
+                                {result.action}
+                            </button>
+                            <button onClick={handleRestart} className="action-btn secondary">
+                                Nouvelle recherche
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="container">
+                    <div className="card">
+                        <div className="icon-circle blue">
+                            <HelpCircleIcon />
+                        </div>
+
+                        <h2>{currentStepData.question}</h2>
+
+                        <div className="options">
+                            {currentStepData.options.map((option, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handleChoice(option.next)}
+                                    className="option-btn"
+                                >
+                                    {option.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {history.length > 0 && (
+                            <button onClick={handleBack} className="back-btn">
+                                <ArrowLeftIcon />
+                                <span>Retour</span>
+                            </button>
+                        )}
+                    </div>
+
+                    <div className="progress">
+                        Étape {history.length + 1} sur {history.length + 2}
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<TroubleshootWizard />);
+    </script>
+</body>
 </html>
