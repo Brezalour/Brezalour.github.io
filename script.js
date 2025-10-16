@@ -162,7 +162,7 @@ function checkWinOrLose() {
 
     if (!displayedWord.includes("_") && errors < maxErrors) {
     console.log("🎉 Victoire détectée !");
-    document.getElementById("message").textContent = "🎉 Coucou c'est moi !";
+    document.getElementById("message").textContent = "🎉 Coucou c'est moi Édouard Joseph Charles HOUÉDÉ !!!";
 
     // 🔥 Zoom et rotation du mot en cas de victoire
     gsap.to("#word-display", { scale: 1.3, rotate: 5, duration: 0.5, ease: "elastic.out(1, 0.3)" });
