@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trouve mon prénom</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <div class="game-container">
+    <h1>Trouve mon prénom</h1>
+
+    <!-- Ajout de l'image à dévoiler -->
+    <img id="photo-reveal" src="ta-photo.jpg" alt="Photo à dévoiler"
+      style="width:300px;opacity:1;transition:opacity 0.5s;display:block;margin:auto;">
+
+    <p id="word-display">_ _ _ _ _</p>
+    <p id="alert-message" style="color: orange; font-weight: bold; height: 20px;"></p>
+    <p id="error-counter">Erreurs : 0 / 6</p>
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <p id="message"></p>
+    <div id="keyboard"></div>
+
+    <button id="restart">Rejouer</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+</body>
+
+</html>
